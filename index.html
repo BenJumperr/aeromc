@@ -6,6 +6,7 @@
     <title>AeroMC - Yükleniyor...</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="shortcut icon" type="image/x-icon" href="/aerologo_transparent.png">
     <link href="https://fonts.googleapis.com/css2?family=Trebuchet+MS:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -336,6 +337,191 @@
             .footer-text {
                 font-size: 14px;
             }
+
+            /* Mobil için baloncuk boyutlarını küçült */
+            .bubble {
+                width: 20px;
+                height: 20px;
+            }
+
+            .bubble:nth-child(1) {
+                width: 18px;
+                height: 18px;
+            }
+
+            .bubble:nth-child(2) {
+                width: 24px;
+                height: 24px;
+            }
+
+            .bubble:nth-child(3) {
+                width: 16px;
+                height: 16px;
+            }
+
+            .bubble:nth-child(4) {
+                width: 20px;
+                height: 20px;
+            }
+
+            .bubble:nth-child(5) {
+                width: 22px;
+                height: 22px;
+            }
+
+            .bubble:nth-child(6) {
+                width: 16px;
+                height: 16px;
+            }
+
+            .bubble:nth-child(7) {
+                width: 20px;
+                height: 20px;
+            }
+
+            .bubble:nth-child(8) {
+                width: 18px;
+                height: 18px;
+            }
+
+            .bubble:nth-child(9) {
+                width: 16px;
+                height: 16px;
+            }
+
+            /* Mobil için content padding'ini azalt */
+            .content-section {
+                padding: 50px 15px;
+            }
+
+            .section-title {
+                margin-bottom: 20px;
+            }
+
+            .service-item {
+                padding: 20px;
+            }
+
+            .wave-container {
+                height: 120px;
+                margin-top: 40px;
+            }
+
+            .section-strip {
+                height: 50px;
+            }
+
+            .footer-text {
+                font-size: 12px;
+            }
+
+            header {
+                padding: 20px;
+            }
+
+            .header-subtitle {
+                font-size: 16px;
+            }
+
+            .loading-logo {
+                width: 100px;
+                height: 100px;
+            }
+
+            .loading-logo .spinner {
+                top: -6px;
+                left: -6px;
+                width: calc(100% + 12px);
+                height: calc(100% + 12px);
+                border-width: 4px;
+            }
+        }
+
+        /* Extra small devices (< 480px) */
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 24px;
+                letter-spacing: 1px;
+            }
+
+            .logo-main {
+                width: 120px;
+                height: 120px;
+            }
+
+            .logo-main img {
+                width: 70%;
+                height: 70%;
+            }
+
+            .header-subtitle {
+                font-size: 14px;
+            }
+
+            .section-title {
+                font-size: 18px;
+                margin-bottom: 15px;
+            }
+
+            .service-item {
+                padding: 15px;
+                border-radius: 10px;
+            }
+
+            .service-item h3 {
+                font-size: 16px;
+                margin-bottom: 10px;
+            }
+
+            .service-item p {
+                font-size: 14px;
+                line-height: 1.5;
+            }
+
+            .content-section {
+                padding: 40px 12px;
+            }
+
+            .wave-container {
+                height: 100px;
+            }
+
+            .section-strip {
+                height: 40px;
+            }
+
+            .footer-text {
+                font-size: 11px;
+            }
+
+            footer {
+                padding: 20px 10px;
+                font-size: 12px;
+            }
+
+            footer p:last-child {
+                font-size: 10px;
+                margin-top: 5px;
+            }
+
+            /* Mobil ekranlarda baloncukları azalt */
+            .bubble {
+                display: none;
+            }
+
+            .bubble:nth-child(even) {
+                display: block;
+                width: 14px;
+                height: 14px;
+            }
+
+            .loading-text {
+                font-size: 20px;
+            }
+
+            .loading-content p {
+                font-size: 11px !important;
+            }
         }
 
         /* Scroll Animations */
@@ -348,6 +534,44 @@
             opacity: 1;
             transform: translateY(0);
             transition: all 0.8s ease-out;
+        }
+
+        /* Bubble Effects (Aero Theme) */
+        .bubble {
+            position: fixed;
+            bottom: -50px;
+            width: 30px;
+            height: 30px;
+            background: radial-gradient(circle at 30% 30%, rgba(77, 208, 225, 0.4), rgba(0, 212, 255, 0.1));
+            border: 2px solid rgba(77, 208, 225, 0.3);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 5;
+            box-shadow: inset -2px -2px 5px rgba(0, 0, 0, 0.2), 0 4px 12px rgba(77, 208, 225, 0.15);
+            animation: float-up linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes float-up {
+            0% {
+                bottom: -50px;
+                opacity: 0;
+                transform: translateX(0);
+            }
+            5% {
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateX(var(--float-offset, 20px));
+            }
+            95% {
+                opacity: 0.4;
+            }
+            100% {
+                bottom: 100vh;
+                opacity: 0;
+                transform: translateX(var(--float-offset, 20px));
+            }
         }
     </style>
 </head>
@@ -433,16 +657,60 @@
     </footer>
 
     <script>
+        // Function to create a bubble with random properties
+        function createBubble() {
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble';
+            
+            // Rastgele yatay konum (0-100%)
+            const randomLeft = Math.random() * 100;
+            bubble.style.left = randomLeft + '%';
+            
+            // Rastgele boyut (18px - 40px)
+            const randomSize = Math.random() * 22 + 18;
+            bubble.style.width = randomSize + 'px';
+            bubble.style.height = randomSize + 'px';
+            
+            // Rastgele animasyon süresi (8s - 14s)
+            const randomDuration = Math.random() * 6 + 8;
+            bubble.style.animationDuration = randomDuration + 's';
+            
+            // Başlangıç pozisyonu (ekranın altında)
+            bubble.style.bottom = '-50px';
+            
+            // Rastgele yatay hareket (-40px - 40px)
+            const randomOffset = (Math.random() - 0.5) * 80;
+            bubble.style.setProperty('--float-offset', `${randomOffset}px`);
+            
+            document.body.appendChild(bubble);
+            
+            // Animasyon bitince baloncuğu sil (duration'ın biraz sonrasında)
+            const timeoutDuration = (randomDuration * 1000) + 200;
+            setTimeout(() => {
+                if (bubble.parentNode) {
+                    bubble.remove();
+                }
+            }, timeoutDuration);
+        }
+
+        // Her 1.5 saniyede bir yeni baloncuk oluştur
+        setInterval(createBubble, 1500);
+        
+        // Sayfa yüklendiğinde hemen bir baloncuk oluştur
+        createBubble();
+
         // Loading Screen Fade Out and removal from DOM after transition
         window.addEventListener('load', function() {
             const loadingScreen = document.getElementById('loadingScreen');
-            setTimeout(() => {
-                loadingScreen.classList.add('fade-out');
-                // remove after transition to avoid blocking interactions
+            if (loadingScreen) {
                 setTimeout(() => {
-                    if (loadingScreen && loadingScreen.parentNode) loadingScreen.parentNode.removeChild(loadingScreen);
-                }, 900);
-            }, 500);
+                    loadingScreen.classList.add('fade-out');
+                    // remove after transition to avoid blocking interactions
+                    setTimeout(() => {
+                        if (loadingScreen && loadingScreen.parentNode) loadingScreen.parentNode.removeChild(loadingScreen);
+                    }, 900);
+                }, 500);
+            }
         });
 
         // Use IntersectionObserver for robust reveal animations
